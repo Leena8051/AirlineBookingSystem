@@ -1,7 +1,3 @@
--- =========================================
--- 0) RESET DATABASE
--- =========================================
-DROP DATABASE IF EXISTS ByteAir;
 CREATE DATABASE ByteAir;
 USE ByteAir;
 
