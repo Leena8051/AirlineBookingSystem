@@ -23,7 +23,8 @@ CREATE TABLE Customer (
     phone_number VARCHAR(15),
     gender ENUM('Male', 'Female'),
     birth_date DATE,
-    email VARCHAR(100)
+    email VARCHAR(100),
+    password VARCHAR(255)  -- بدل الـ ALTER TABLE، ضفناها مباشرة هنا
 );
 
 CREATE TABLE Login (
@@ -179,16 +180,16 @@ INSERT INTO Admin VALUES
 ('AD-6','Rawan','Abdullah','Al-qattan','RAQ72@gmail.com','0573195928','Female'),
 ('AD-7','Zahra','Haytham','Al-ismail','Zh72@gmail.com','0573185922','Female');
 
--- CUSTOMERS (C-1A .. C-8A)
+-- CUSTOMERS (C-1A .. C-8A)  + password = 'passXXXX' for example
 INSERT INTO Customer VALUES
-('C-1A','Sara','Ahmed','Kamal','0557654321','Female','1985-11-20','sara85@gmail.com'),
-('C-2A','Ali','Saad','Al-Ajmi','0501234567','Male','1999-04-10','ali55@gmail.com'),
-('C-3A','Fahad','Abdullah','Al-khaldi','0501200566','Male','2001-12-24','FAS90@gmail.com'),
-('C-4A','Khalid','Abdullah','Al-khaldi','0501289566','Male','2005-11-05','kaj70@gmail.com'),
-('C-5A','Alreem','Majed','Al-khaldi','0501934586','Female','2004-06-22','AMK0@gmail.com'),
-('C-6A','Reema','Khalid','Al-Zahrani','0501934566','Female','2000-10-24','RFG90@gmail.com'),
-('C-7A','Sara','Abdulaziz','Al-subaiey','0531234566','Female','2005-01-13','SAS0@gmail.com'),
-('C-8A','Fatimah','Hassn','Al-Hassan','0501234577','Female','1990-12-24','FHA55@gmail.com');
+('C-1A','Sara','Ahmed','Kamal','0557654321','Female','1985-11-20','sara85@gmail.com','pass1234'),
+('C-2A','Ali','Saad','Al-Ajmi','0501234567','Male','1999-04-10','ali55@gmail.com','pass5678'),
+('C-3A','Fahad','Abdullah','Al-khaldi','0501200566','Male','2001-12-24','FAS90@gmail.com','pass91011'),
+('C-4A','Khalid','Abdullah','Al-khaldi','0501289566','Male','2005-11-05','kaj70@gmail.com','pass1213'),
+('C-5A','Alreem','Majed','Al-khaldi','0501934586','Female','2004-06-22','AMK0@gmail.com','pass1415'),
+('C-6A','Reema','Khalid','Al-Zahrani','0501934566','Female','2000-10-24','RFG90@gmail.com','pass1617'),
+('C-7A','Sara','Abdulaziz','Al-subaiey','0531234566','Female','2005-01-13','SAS0@gmail.com','pass1819'),
+('C-8A','Fatimah','Hassn','Al-Hassan','0501234577','Female','1990-12-24','FHA55@gmail.com','pass2021');
 
 -- LOGIN (Customers + Admins)
 INSERT INTO Login (email,password,role,customer_id,admin_id) VALUES
@@ -209,7 +210,7 @@ INSERT INTO Login (email,password,role,customer_id,admin_id) VALUES
 ('RAQ72@gmail.com','adminpass6','Admin',NULL,'AD-6'),
 ('Zh72@gmail.com','adminpass7','Admin',NULL,'AD-7');
 
--- FLIGHTS (already BYTEAIR)
+-- FLIGHTS
 INSERT INTO Flight VALUES
 ('FL100','BYTEAIR A','Riyadh','Dammam','2026-05-01 10:00:00','2026-05-01 13:00:00',300.00,180,'2026-05-01','Scheduled'),
 ('FL101','BYTEAIR B','Riyadh','London','2026-05-01 07:00:00','2026-05-01 14:00:00',1000.00,180,'2026-05-01','Delayed'),
@@ -229,7 +230,7 @@ INSERT INTO Booking VALUES
 ('B-K6','C-6A','FL105','2026-05-09','Pending'),
 ('B-K7','C-7A','FL106','2026-05-10','Confirmed');
 
--- TICKETS
+-- TICKETS (TKT100..TKT106) تناسب دالتك في Java
 INSERT INTO Ticket VALUES
 ('TKT100','B-K1','12A','Economy','2026-05-01','a1b2c3d4','G1'),
 ('TKT101','B-K2','14B','Business','2026-05-01','e5f6g7h8','G2'),
@@ -249,7 +250,7 @@ INSERT INTO Passenger VALUES
 ('PAS-S5','Fatimah','Alhassan','PPT55','Saudi Arabia','Female',38,'B-K6'),
 ('PAS-S6','Ali','Alajmi','PPT66','Qatar','Male',29,'B-K7');
 
--- PAYMENTS
+-- PAYMENTS (PAY001..PAY007) تناسب الفكرة اللي تبينها
 INSERT INTO Payment VALUES
 ('PAY001',300.00,'2026-05-01','C-1A','B-K1','CreditCard'),
 ('PAY002',1000.00,'2026-05-01','C-2A','B-K2','CreditCard'),
@@ -349,17 +350,3 @@ INSERT INTO Feedback (customer_id, booking_id, rating, comments) VALUES
 ('C-5A', 'B-K5', 4, 'Overall good, but would like more meal options.'),
 ('C-6A', 'B-K6', 5, 'Excellent! Great value for the price.'),
 ('C-7A', 'B-K7', 5, 'Loved the crew and in-flight entertainment.');
-
-USE ByteAir;
-ALTER TABLE Customer
-ADD COLUMN password VARCHAR(255) AFTER email;
-
-ALTER TABLE feedback
-DROP FOREIGN KEY feedback_ibfk_2;
-
-ALTER TABLE feedback
-DROP COLUMN booking_id;
-UPDATE Admin 
-SET admin_id = 'AD-7' 
-WHERE admin_id = 'AD-81CCF';
-
