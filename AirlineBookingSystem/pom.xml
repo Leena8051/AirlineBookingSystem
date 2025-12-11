@@ -16,14 +16,14 @@
     </properties>
 
 <dependencies>
-    <!-- ✅ MySQL JDBC Driver الصحيح -->
+    <!-- ✅ MySQL JDBC Driver 
     <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>8.0.33</version>
     </dependency>
 
-    <!-- ✅ JCalendar Library لإضافة JDateChooser -->
+    <!-- ✅ JCalendar Library JDateChooser -->
     <dependency>
         <groupId>com.toedter</groupId>
         <artifactId>jcalendar</artifactId>
