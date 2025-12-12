@@ -29,17 +29,15 @@ public class MyTicketsBookings extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // ---------- Background ----------
+        //  Background 
         setContentPane(createBackgroundLayer("/images/TicketImage.jpg"));
         setLayout(new BorderLayout());
 
-        // ---------- Main wrapper (transparent so background shows) ----------
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setOpaque(false);
         wrapper.setBorder(new EmptyBorder(30, 60, 35, 60)); // padding around the whole UI
         add(wrapper, BorderLayout.CENTER);
 
-        // ---------- Header ----------
         JPanel headerPanel = new JPanel();
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
@@ -71,13 +69,11 @@ public class MyTicketsBookings extends JFrame {
 
         wrapper.add(headerPanel, BorderLayout.NORTH);
 
-        // ---------- Center: search/filter + table ----------
         JPanel centerPanel = new JPanel(new BorderLayout(0, 12));
         centerPanel.setOpaque(false);
         centerPanel.setBorder(new EmptyBorder(20, 0, 0, 0));
         wrapper.add(centerPanel, BorderLayout.CENTER);
 
-        // Top controls row (Search + Date Filter)
         JPanel controls = new JPanel(new GridBagLayout());
         controls.setOpaque(false);
 
@@ -126,7 +122,7 @@ public class MyTicketsBookings extends JFrame {
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
         centerPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // ---------- Bottom buttons row ----------
+        //  Bottom buttons row 
         JPanel bottom = new JPanel(new GridBagLayout());
         bottom.setOpaque(false);
         bottom.setBorder(new EmptyBorder(18, 0, 0, 0));
@@ -171,7 +167,6 @@ public class MyTicketsBookings extends JFrame {
         loadTickets();
     }
 
-    // ---------- Background helper ----------
     private JComponent createBackgroundLayer(String resourcePath) {
         try {
             Image img = ImageIO.read(getClass().getResource(resourcePath));
@@ -204,9 +199,7 @@ public class MyTicketsBookings extends JFrame {
         return b;
     }
 
-    // ----------------------------------------------------
     // LOAD TICKETS (WITH STATUS)
-    // ----------------------------------------------------
     private void loadTickets() {
         errorLabel.setText(" ");
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -234,9 +227,7 @@ public class MyTicketsBookings extends JFrame {
         }
     }
 
-    // ----------------------------------------------------
     // CANCEL SINGLE TICKET
-    // ----------------------------------------------------
     private void cancelTicket() {
         errorLabel.setText(" ");
         int row = ticketsTable.getSelectedRow();
@@ -278,9 +269,7 @@ public class MyTicketsBookings extends JFrame {
         }
     }
 
-    // ----------------------------------------------------
     // RESTORE TICKET
-    // ----------------------------------------------------
     private void restoreTicket() {
         errorLabel.setText(" ");
         int row = ticketsTable.getSelectedRow();
@@ -308,7 +297,6 @@ public class MyTicketsBookings extends JFrame {
         }
     }
 
-    // ----------------------------------------------------
     private void searchTickets(String keyword) {
         errorLabel.setText(" ");
         try (Connection conn = DatabaseConnection.getConnection()) {
