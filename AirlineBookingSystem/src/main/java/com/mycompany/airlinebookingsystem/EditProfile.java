@@ -265,3 +265,4 @@ public class EditProfile extends JFrame {
         new EditProfile();
     }
 }
+
