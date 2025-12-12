@@ -26,7 +26,6 @@ public class LoginSignupPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        // Background image
         try {
             setContentPane(new JLabel(new ImageIcon(
                     ImageIO.read(getClass().getResource("/images/Map.jpg")))));
@@ -37,7 +36,6 @@ public class LoginSignupPage extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
 
-        // Small rounded icon + welcome text
         try {
             BufferedImage original = ImageIO.read(new File("C:/Users/leena/Desktop/iii.jpg"));
             int size = 50;
@@ -131,16 +129,14 @@ public class LoginSignupPage extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * LOGIN USING Login TABLE + JOIN ON Customer/Admin
-     */
+    
     private void loginAction() {
         errorLabel.setText("");
 
         String email = emailField.getText().trim();
         String password = new String(passwordField.getPassword());
 
-        // ---------- Basic validation ----------
+        //  Basic validation 
         if (email.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Please fill in both email and password.");
             return;
@@ -151,7 +147,7 @@ public class LoginSignupPage extends JFrame {
             return;
         }
 
-        // ---------- Database check ----------
+        //  Database check 
         try (Connection conn = DatabaseConnection.getConnection()) {
 
             if (conn == null) {
