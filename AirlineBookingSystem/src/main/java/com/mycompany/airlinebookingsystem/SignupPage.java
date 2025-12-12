@@ -32,7 +32,6 @@ public class SignupPage extends JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Very important: use absolute layout on the content pane
         getContentPane().setLayout(null);
 
         JLabel titleLabel = new JLabel("Create Your ByteAir Account");
@@ -52,7 +51,7 @@ public class SignupPage extends JFrame {
         firstNameField.setBounds(500, 130, 200, 30);
         add(firstNameField);
 
-        // ---------- Middle Name ----------
+        //  Middle Name 
         JLabel middleNameLabel = new JLabel("Middle Name:");
         middleNameLabel.setBounds(750, 100, 120, 20);
         styleLabel(middleNameLabel);
@@ -63,7 +62,7 @@ public class SignupPage extends JFrame {
         middleNameField.setBounds(750, 130, 200, 30);
         add(middleNameField);
 
-        // ---------- Last Name ----------
+        //  Last Name 
         JLabel lastNameLabel = new JLabel("Last Name:");
         lastNameLabel.setBounds(500, 170, 120, 20);
         styleLabel(lastNameLabel);
@@ -74,7 +73,7 @@ public class SignupPage extends JFrame {
         lastNameField.setBounds(500, 200, 200, 30);
         add(lastNameField);
 
-        // ---------- Email ----------
+        //  Email 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setBounds(750, 170, 120, 20);
         styleLabel(emailLabel);
@@ -85,7 +84,7 @@ public class SignupPage extends JFrame {
         emailField.setBounds(750, 200, 200, 30);
         add(emailField);
 
-        // ---------- Phone ----------
+        //  Phone 
         JLabel phoneLabel = new JLabel("Phone:");
         phoneLabel.setBounds(500, 240, 120, 20);
         styleLabel(phoneLabel);
@@ -96,7 +95,7 @@ public class SignupPage extends JFrame {
         phoneField.setBounds(500, 270, 200, 30);
         add(phoneField);
 
-        // ---------- Gender ----------
+        //  Gender 
         JLabel genderLabel = new JLabel("Gender:");
         genderLabel.setBounds(750, 240, 120, 20);
         styleLabel(genderLabel);
@@ -107,7 +106,6 @@ public class SignupPage extends JFrame {
         maleButton.setBounds(750, 270, 70, 20);
         femaleButton.setBounds(830, 270, 80, 20);
 
-        // Make radio buttons transparent over the image
         maleButton.setOpaque(false);
         femaleButton.setOpaque(false);
         maleButton.setForeground(Color.WHITE);
@@ -119,7 +117,7 @@ public class SignupPage extends JFrame {
         add(maleButton);
         add(femaleButton);
 
-        // ---------- Birth Date ----------
+        //  Birth Date 
         JLabel birthDateLabel = new JLabel("Birth Date:");
         birthDateLabel.setBounds(500, 310, 120, 20);
         styleLabel(birthDateLabel);
@@ -131,7 +129,7 @@ public class SignupPage extends JFrame {
         birthDateChooser.setDateFormatString("yyyy-MM-dd");
         add(birthDateChooser);
 
-        // ---------- Password ----------
+        //  Password 
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setBounds(750, 310, 120, 20);
         styleLabel(passwordLabel);
@@ -142,7 +140,7 @@ public class SignupPage extends JFrame {
         passwordField.setBounds(750, 340, 200, 30);
         add(passwordField);
 
-        // ---------- Confirm Password ----------
+        //  Confirm Password 
         JLabel confirmPasswordLabel = new JLabel("Confirm Password:");
         confirmPasswordLabel.setBounds(500, 380, 200, 20);
         styleLabel(confirmPasswordLabel);
@@ -153,7 +151,7 @@ public class SignupPage extends JFrame {
         confirmPasswordField.setBounds(500, 410, 450, 30);
         add(confirmPasswordField);
 
-        // ---------- Show Password ----------
+        //  Show Password 
         JCheckBox showPasswordCheckBox = new JCheckBox("Show Password");
         showPasswordCheckBox.setBounds(500, 450, 200, 20);
         showPasswordCheckBox.setOpaque(false);
@@ -166,14 +164,14 @@ public class SignupPage extends JFrame {
         });
         add(showPasswordCheckBox);
 
-        // ---------- Error Label ----------
+        //  Error Label 
         errorLabel = new JLabel("");
         errorLabel.setBounds(500, 480, 600, 20);
         errorLabel.setForeground(Color.RED);
         errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         add(errorLabel);
 
-        // ---------- Buttons ----------
+        //  Buttons 
         signupButton = new JButton("Sign Up");
         signupButton.setBounds(500, 510, 140, 40);
         signupButton.setBackground(Color.decode("#ADD8E6"));
@@ -209,7 +207,7 @@ public class SignupPage extends JFrame {
         String gender = maleButton.isSelected() ? "Male" : (femaleButton.isSelected() ? "Female" : "");
         Date birthDate = birthDateChooser.getDate();
 
-        // ---------- Validation ----------
+        //  Validation 
         if (first.isEmpty() || last.isEmpty() || email.isEmpty() || phone.isEmpty() ||
                 password.isEmpty() || confirmPassword.isEmpty() ||
                 gender.isEmpty() || birthDate == null) {
@@ -251,10 +249,8 @@ public class SignupPage extends JFrame {
             return;
         }
 
-        // ---------- Database logic ----------
         try (Connection conn = DatabaseConnection.getConnection()) {
 
-            // 1) Check if email already exists in Login (Login.email is UNIQUE)
             String checkSql = "SELECT 1 FROM Login WHERE email = ?";
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setString(1, email);
@@ -266,7 +262,6 @@ public class SignupPage extends JFrame {
                 }
             }
 
-            // 2) Generate next customer ID: C-1A, C-2A, C-3A, ...
             int count = 0;
             String countSql = "SELECT COUNT(*) FROM Customer";
             try (PreparedStatement idStmt = conn.prepareStatement(countSql);
@@ -277,7 +272,6 @@ public class SignupPage extends JFrame {
             }
             String customerId = "C-" + count + "A";
 
-            // 3) Insert into Customer (no id_num, no password column)
             String customerSql = "INSERT INTO Customer " +
                     "(customer_id, first_name, middle_name, last_name, phone_number, gender, birth_date, email) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -299,7 +293,6 @@ public class SignupPage extends JFrame {
                 }
             }
 
-            // 4) Insert into Login for authentication
             String loginSql = "INSERT INTO Login (email, password, role, customer_id, admin_id) " +
                     "VALUES (?, ?, 'Customer', ?, NULL)";
             try (PreparedStatement pstLogin = conn.prepareStatement(loginSql)) {
