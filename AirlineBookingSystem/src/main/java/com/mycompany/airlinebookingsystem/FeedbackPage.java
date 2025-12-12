@@ -15,14 +15,14 @@ public class FeedbackPage extends JFrame {
     private JLabel errorLabel;
     private JLabel charCountLabel;
 
-    //  NEW: booking id for this feedback
+    //  booking id for this feedback
     private final String bookingId;
 
     private static final int MAX_COMMENT_CHARS = 300;
     private static final String PLACEHOLDER_TEXT =
             "Write your feedback here…\nTell us what you loved or what we can improve.";
 
-    //  NEW: constructor requires bookingId
+    //   constructor requires bookingId
     public FeedbackPage(String bookingId) {
         this.bookingId = bookingId;
 
@@ -51,9 +51,7 @@ public class FeedbackPage extends JFrame {
 
     private void initComponents() {
 
-        // -----------------------------------------
-        // TITLE BANNER
-        // -----------------------------------------
+        
         JPanel titleBanner = new JPanel(null);
         titleBanner.setOpaque(true);
         titleBanner.setBackground(new Color(255, 255, 255, 230));
@@ -74,9 +72,8 @@ public class FeedbackPage extends JFrame {
         tagline.setBounds(20, 40, 460, 25);
         titleBanner.add(tagline);
 
-        // -----------------------------------------
+        
         // MAIN INPUT CARD
-        // -----------------------------------------
         JPanel inputCard = new JPanel(null);
         inputCard.setBackground(new Color(250, 252, 255, 235));
         inputCard.setBounds(60, 130, 1000, 360);
@@ -104,9 +101,7 @@ public class FeedbackPage extends JFrame {
 
         y += gap;
 
-        // -----------------------------------------
         // RATING SPINNER (1–5)
-        // -----------------------------------------
         JLabel ratingLabel = new JLabel("Rating (1–5):");
         ratingLabel.setBounds(x1, y, 160, 30);
         ratingLabel.setFont(labelFont);
@@ -124,10 +119,8 @@ public class FeedbackPage extends JFrame {
         sep.setBounds(30, y - 20, 940, 1);
         sep.setForeground(new Color(210, 220, 240));
         inputCard.add(sep);
-
-        // -----------------------------------------
+        
         // COMMENTS FIELD
-        // -----------------------------------------
         JLabel commentsLabel = new JLabel("Comments:");
         commentsLabel.setBounds(x1, y, 160, 30);
         commentsLabel.setFont(labelFont);
@@ -189,9 +182,7 @@ public class FeedbackPage extends JFrame {
             public void changedUpdate(DocumentEvent e) { updateCharCount(); }
         });
 
-        // -----------------------------------------
         // BUTTONS
-        // -----------------------------------------
         JButton submitBtn = createButton("Submit Feedback");
         submitBtn.setBounds(720, 80, 220, 48);
         submitBtn.setToolTipText("Save your rating and comment. Thank you for helping us improve!");
@@ -207,7 +198,6 @@ public class FeedbackPage extends JFrame {
         });
         inputCard.add(backBtn);
 
-        // Make Enter key press submit (nice UX)
         getRootPane().setDefaultButton(submitBtn);
     }
 
@@ -233,7 +223,7 @@ public class FeedbackPage extends JFrame {
         return btn;
     }
 
-    // ---------------- CHARACTER COUNTER -------------------
+    //  CHARACTER COUNTER 
     private void updateCharCount() {
         String text = commentsArea.getText();
 
@@ -257,7 +247,7 @@ public class FeedbackPage extends JFrame {
         }
     }
 
-    // ---------------- SUBMIT FEEDBACK -------------------
+    //  SUBMIT FEEDBACK 
     private void submitFeedback() {
 
         int rating = (int) ratingSpinner.getValue();
