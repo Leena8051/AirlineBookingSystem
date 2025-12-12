@@ -53,12 +53,12 @@ public class AdminDashboard extends JFrame {
         welcomeLabel.setBounds(180, 90, 400, 30);
         add(welcomeLabel);
 
-        // ================= BUTTONS ===================
+        //  BUTTONS 
         JButton flightsButton   = createButton("️  Manage Flights",     250, "View, add, or edit flight details.");
         JButton bookingsButton  = createButton(" Manage Bookings",     330, "Review or manage customer bookings.");
         JButton addAdminButton  = createButton("  Add New Admin",      410, "Register a new administrator.");
 
-        // ⭐ NEW BUTTON ADDED HERE ⭐
+        //  NEW BUTTON ADDED HERE 
         JButton feedbackButton  = createButton("  Manage Feedback",     490, "Review and manage customer feedback.");
 
         JButton logoutButton    = createButton(" Logout",              570, "Sign out and return to login screen.");
@@ -66,16 +66,15 @@ public class AdminDashboard extends JFrame {
         add(flightsButton);
         add(bookingsButton);
         add(addAdminButton);
-        add(feedbackButton); // <— ADDED
+        add(feedbackButton);
         add(logoutButton);
 
-        // ================= ACTION LISTENERS ===================
+        //  ACTION LISTENERS 
         flightsButton.addActionListener(e -> new ManageFlights());
         bookingsButton.addActionListener(e -> new ManageBookings());
         addAdminButton.addActionListener(e -> new AddAdminPage());
 
-        feedbackButton.addActionListener(e -> new ManageFeedbackPage()); // <— ADDED
-
+        feedbackButton.addActionListener(e -> new ManageFeedbackPage()); 
         logoutButton.addActionListener(e -> {
             new LoginSignupPage().setVisible(true);
             dispose();
