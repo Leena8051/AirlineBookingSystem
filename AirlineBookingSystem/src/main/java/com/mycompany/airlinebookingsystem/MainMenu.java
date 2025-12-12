@@ -22,7 +22,6 @@ public class MainMenu extends JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // ========== NAV BAR ==========
         JPanel navBar = new JPanel();
         navBar.setLayout(null);
         navBar.setBackground(new Color(255, 255, 255, 200));
@@ -30,7 +29,6 @@ public class MainMenu extends JFrame {
         navBar.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
         add(navBar);
 
-        // Logo
         try {
             ImageIcon icon = new ImageIcon(getClass().getResource("/images/SkyVerraIcon.png"));
             Image image = icon.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
@@ -115,7 +113,6 @@ public class MainMenu extends JFrame {
             System.out.println("⚠️ User icon not found.");
         }
 
-        // ========== HERO SECTION ==========
         JLabel titleLabel = new JLabel("ByteAir Airlines");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 42));
         titleLabel.setForeground(Color.WHITE);
@@ -140,15 +137,12 @@ public class MainMenu extends JFrame {
         sloganLabel.setHorizontalAlignment(SwingConstants.LEFT);
         add(sloganLabel);
 
-        // ========== MAIN NAV BUTTONS ==========
         addNavButton("Book Flight",             150, 200, "BookingPage");
         addNavButton("My Tickets & Bookings",   150, 260, "MyTicketsBookings");
 
-        // 🔹 New features:
         addNavButton("Tour Guides & Booking",   150, 320, "TourGuidePage");
         addNavButton("Flight Deals",            150, 380, "FlightDealsPage");
 
-        // ========== FOOTER ==========
         JPanel footer = new JPanel();
         footer.setLayout(null);
         footer.setBackground(new Color(255, 255, 255, 200));
