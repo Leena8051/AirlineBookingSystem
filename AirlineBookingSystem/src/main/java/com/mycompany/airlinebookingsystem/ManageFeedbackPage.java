@@ -144,7 +144,7 @@ public class ManageFeedbackPage extends JFrame {
         return btn;
     }
 
-    // ---------- LOAD ----------
+    //  LOAD 
     private void loadFeedback() {
         try (Connection conn = DatabaseConnection.getConnection()) {
             String sql = "SELECT feedback_id, customer_id, booking_id, rating, comments, created_at " +
@@ -180,7 +180,7 @@ public class ManageFeedbackPage extends JFrame {
         };
     }
 
-    // ---------- UPDATE ----------
+    //  UPDATE 
     private void updateFeedback() {
         int row = feedbackTable.getSelectedRow();
         if (row == -1) {
@@ -223,7 +223,7 @@ public class ManageFeedbackPage extends JFrame {
         }
     }
 
-    // ---------- DELETE ----------
+    //  DELETE 
     private void deleteFeedback() {
         int row = feedbackTable.getSelectedRow();
         if (row == -1) {
