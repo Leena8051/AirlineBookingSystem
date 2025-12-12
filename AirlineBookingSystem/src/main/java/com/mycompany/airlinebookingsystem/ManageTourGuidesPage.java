@@ -52,7 +52,6 @@ public class ManageTourGuidesPage extends JFrame {
         scroll.setBounds(60, 80, 900, 280);
         add(scroll);
 
-        // ==== Form ====
         int xLabel = 60, xField = 220, y = 380, gap = 45, h = 30, w = 260;
 
         JLabel nameLbl = createLabel("Full Name:", xLabel, y);
@@ -77,7 +76,7 @@ public class ManageTourGuidesPage extends JFrame {
         activeCheck.setBounds(xField, y, 120, h);
         add(activeLbl); add(activeCheck);
 
-        // ==== Buttons ====
+        //  Buttons 
         addButton = createButton("Add Guide", 550, 380);
         updateButton = createButton("Update Guide", 550, 380 + gap);
         deleteButton = createButton("Delete Guide", 550, 380 + 2 * gap);
@@ -139,7 +138,6 @@ public class ManageTourGuidesPage extends JFrame {
         return b;
     }
 
-    // ---------- DB ops ----------
 
     private void loadGuides() {
         try (Connection conn = DatabaseConnection.getConnection()) {
