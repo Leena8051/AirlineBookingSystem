@@ -18,15 +18,12 @@ public class TourGuidePage extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // ================================
-        // SKY BACKGROUND IMAGE
-        // ================================
+
         try {
             JLabel bg = new JLabel(new ImageIcon(
                     getClass().getResource("/images/AirPlaneSky.jpg")));
             setContentPane(bg);
         } catch (Exception e) {
-            // fallback if image missing
             getContentPane().setBackground(new Color(230, 240, 255));
         }
 
@@ -47,7 +44,6 @@ public class TourGuidePage extends JFrame {
         titleLabel.setBounds(60, 30, 600, 40);
         add(titleLabel);
 
-        // TABLE
         guideTable = new JTable();
         guideTable.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         guideTable.setRowHeight(28);
@@ -60,21 +56,18 @@ public class TourGuidePage extends JFrame {
         scrollPane.getViewport().setOpaque(false);
         add(scrollPane);
 
-        // BOOK BUTTON
         bookTourButton = new JButton("Book Tour with Selected Guide");
         bookTourButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         bookTourButton.setBounds(60, 480, 320, 45);
         styleMainButton(bookTourButton);
         add(bookTourButton);
 
-        // BACK BUTTON
         backButton = new JButton("Back to Main Menu");
         backButton.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         backButton.setBounds(400, 480, 250, 45);
         styleMainButton(backButton);
         add(backButton);
 
-        // ACTIONS
         bookTourButton.addActionListener(e -> openTourBooking());
         backButton.addActionListener(e -> {
             new MainMenu().setVisible(true);
