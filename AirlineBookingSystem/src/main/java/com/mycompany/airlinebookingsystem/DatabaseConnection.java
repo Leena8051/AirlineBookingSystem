@@ -6,16 +6,14 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    // 🔹 NEW — Use ByteAir database
+    //  Use ByteAir database
     private static final String URL = "jdbc:mysql://localhost:3306/ByteAir?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
-    // 🔹 Your credentials (you can modify here if needed)
+    //  Your credentials (you can modify here if needed)
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Amnesaifndara1*";
 
-    // ============================================================
     //  GET CONNECTION
-    // ============================================================
     public static Connection getConnection() {
         try {
             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
