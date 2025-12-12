@@ -13,7 +13,6 @@ import java.util.*;
 
 public class FlightDealsPage extends JFrame {
 
-    // UI
     private JTextField searchField;
     private JComboBox<String> destinationFilter;
     private JComboBox<String> sortCombo;
@@ -57,9 +56,7 @@ public class FlightDealsPage extends JFrame {
         setVisible(true);
     }
 
-    // =========================================================
-    // UI SECTIONS
-    // =========================================================
+    
     private void initHeaderBanner() {
         JPanel banner = new JPanel();
         banner.setLayout(null);
@@ -177,9 +174,7 @@ public class FlightDealsPage extends JFrame {
         add(scrollPane);
     }
 
-    // =========================================================
-    // DATA MODEL
-    // =========================================================
+
     private static class Deal {
         String dealId;
         String flightNo;
@@ -224,9 +219,7 @@ public class FlightDealsPage extends JFrame {
         }
     }
 
-    // =========================================================
-    // DB LOADING
-    // =========================================================
+    
     private void loadDealsFromDatabase() {
         allDeals.clear();
         destinations.clear();
@@ -284,9 +277,7 @@ public class FlightDealsPage extends JFrame {
         destinationFilter.setSelectedIndex(0);
     }
 
-    // =========================================================
-    // RENDERING
-    // =========================================================
+    
     private void renderDeals() {
         dealsContainer.removeAll();
         dealOfDayPanel.setVisible(false);
@@ -372,7 +363,7 @@ public class FlightDealsPage extends JFrame {
         }
     }
 
-    // ===================== DEAL OF THE DAY ===================
+    //  DEAL OF THE DAY 
     private void buildDealOfDay(Deal d) {
         dealOfDayPanel.removeAll();
 
@@ -432,7 +423,7 @@ public class FlightDealsPage extends JFrame {
         dealOfDayPanel.setVisible(true);
     }
 
-    // ===================== NORMAL DEAL CARDS =================
+    //  NORMAL DEAL CARDS 
     private JPanel buildDealCard(Deal d, boolean isDealOfDay) {
         JPanel card = new JPanel();
         card.setLayout(null);
@@ -551,9 +542,7 @@ public class FlightDealsPage extends JFrame {
         return card;
     }
 
-    // =========================================================
-    // NAVIGATION
-    // =========================================================
+    
     private void openBookingForDeal(Deal d) {
         // store selected flight so BookingPage can pre-select it
         try {
