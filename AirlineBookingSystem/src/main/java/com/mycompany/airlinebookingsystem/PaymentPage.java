@@ -36,7 +36,7 @@ public class PaymentPage extends JFrame {
         }
 
         setTitle("ByteAir - Payment");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);   // FULL SCREEN
+        setExtendedState(JFrame.MAXIMIZED_BOTH);   
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new Color(230, 240, 255));
         setLayout(null);
@@ -165,10 +165,7 @@ public class PaymentPage extends JFrame {
         return button;
     }
 
-    // -------------------------------------------------------------------------
-    // FIXED SEQUENTIAL PAYMENT ID → PAY001, PAY002, PAY003, ...
-    // -------------------------------------------------------------------------
-    private String generateNextPaymentId(Connection conn) throws SQLException {
+       private String generateNextPaymentId(Connection conn) throws SQLException {
 
         String sql =
                 "SELECT CAST(SUBSTRING(payment_id, 4) AS UNSIGNED) AS num " +
@@ -192,14 +189,10 @@ public class PaymentPage extends JFrame {
         return String.format("PAY%03d", next);
     }
 
-    // -------------------------------------------------------------------------
-    // MAIN PAYMENT PROCESS LOGIC
-    // -------------------------------------------------------------------------
     private void processPayment() {
 
         errorLabel.setText(" ");
 
-        // ✅ Required: logged in
         if (Session.currentUserId == null || Session.currentUserId.trim().isEmpty()) {
             errorLabel.setText("You must be logged in to pay.");
             JOptionPane.showMessageDialog(this,
@@ -209,7 +202,6 @@ public class PaymentPage extends JFrame {
             return;
         }
 
-        // ✅ Required: booking id exists (so we can link feedback later)
         if (bookingId == null || bookingId.trim().isEmpty()) {
             errorLabel.setText("Booking ID is missing. Please go back and select a flight again.");
             JOptionPane.showMessageDialog(this,
@@ -252,7 +244,6 @@ public class PaymentPage extends JFrame {
             return;
         }
 
-        // ---------------------------- DATABASE ----------------------------
         try (Connection conn = DatabaseConnection.getConnection()) {
 
             if (conn == null) {
@@ -260,7 +251,6 @@ public class PaymentPage extends JFrame {
                 return;
             }
 
-            // ✅ Make it atomic
             conn.setAutoCommit(false);
 
             String paymentId = generateNextPaymentId(conn);
@@ -279,7 +269,6 @@ public class PaymentPage extends JFrame {
                 pst.executeUpdate();
             }
 
-            // ------------------ CREATE TICKETS ------------------
             for (int i = 0; i < BookingPage.selectedSeats.size(); i++) {
                 String ticketId = generateNextTicketId(conn);
                 String ticketCode = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
@@ -322,12 +311,11 @@ public class PaymentPage extends JFrame {
 
             conn.commit();
 
-            // Show receipt
             JOptionPane.showMessageDialog(this,
                     "Payment successful!\nPayment ID: " + paymentId,
                     "Success", JOptionPane.INFORMATION_MESSAGE);
 
-            // ✅ FIX: pass bookingId to FeedbackPage so booking_id is saved
+            //  FIX: pass bookingId to FeedbackPage so booking_id is saved
             new FeedbackPage(bookingId).setVisible(true);
             dispose();
 
@@ -341,7 +329,6 @@ public class PaymentPage extends JFrame {
         }
     }
 
-    // ---- Ticket ID generator (TKT100, TKT101, ...) ----
     private String generateNextTicketId(Connection conn) throws SQLException {
         String sql =
                 "SELECT CAST(SUBSTRING(ticket_id, 4) AS UNSIGNED) AS num " +
@@ -365,3 +352,4 @@ public class PaymentPage extends JFrame {
         };
     }
 }
+
