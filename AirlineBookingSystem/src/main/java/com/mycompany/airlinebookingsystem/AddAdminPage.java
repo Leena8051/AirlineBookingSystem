@@ -17,7 +17,7 @@ public class AddAdminPage extends JFrame {
     private String currentAdminId;
 
     public AddAdminPage() {
-        this(null); // calls the main constructor with null
+        this(null); 
     }
 
     public AddAdminPage(String currentAdminId) {
@@ -31,11 +31,10 @@ public class AddAdminPage extends JFrame {
 
     private void initUI() {
         setTitle("Add New Admin - ByteAir");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);   // full screen
+        setExtendedState(JFrame.MAXIMIZED_BOTH);   
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Background image
         try {
             JLabel bg = new JLabel(new ImageIcon(ImageIO.read(
                     getClass().getResource("/images/AirPlaneSky.jpg"))));
@@ -46,7 +45,6 @@ public class AddAdminPage extends JFrame {
 
         getContentPane().setLayout(null);
 
-        // Card panel
         JPanel card = new JPanel();
         card.setLayout(null);
         card.setBackground(new Color(255, 255, 255, 230));
@@ -186,10 +184,7 @@ public class AddAdminPage extends JFrame {
         return btn;
     }
 
-    // ======================================================
-    //  SEQUENTIAL ADMIN ID: AD-1, AD-2, AD-3, ...
-    //  Ignores bad IDs like AD-81CCF
-    // ======================================================
+    
     private String generateNextAdminId(Connection conn) throws SQLException {
         String sql =
             "SELECT MAX(CAST(SUBSTRING(admin_id, 4) AS UNSIGNED)) AS num " +
@@ -209,13 +204,9 @@ public class AddAdminPage extends JFrame {
             }
         }
 
-        // AD-1, AD-2, AD-10, ...
         return "AD-" + next;
     }
 
-    // ======================================================
-    // SAVE ADMIN
-    // ======================================================
     private void saveAdmin() {
 
         errorLabel.setText(" ");
@@ -271,7 +262,6 @@ public class AddAdminPage extends JFrame {
                 return;
             }
 
-            // 🔹 Generate sequential admin ID: AD-8, AD-9, AD-10, ...
             String adminId = generateNextAdminId(conn);
 
             // Insert Admin
