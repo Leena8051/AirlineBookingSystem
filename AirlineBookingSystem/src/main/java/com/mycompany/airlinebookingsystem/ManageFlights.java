@@ -18,7 +18,7 @@ public class ManageFlights extends JFrame {
             departureTimeField, arrivalTimeField, priceField, capacityField;
     private JButton addButton, updateButton, deleteButton, backButton, refreshButton;
 
-    // ====== Deals section fields ======
+    //  Deals section fields 
     private JTextField dealTitleField;
     private JTextArea dealDescriptionArea;
     private JComboBox<String> dealTypeCombo;
@@ -52,7 +52,6 @@ public class ManageFlights extends JFrame {
         titleLabel.setForeground(Color.WHITE);
         add(titleLabel, BorderLayout.NORTH);
 
-        // ===== LEFT SIDE: table + form =====
         JPanel leftPanel = new JPanel(new BorderLayout());
         leftPanel.setOpaque(false);
 
@@ -104,10 +103,10 @@ public class ManageFlights extends JFrame {
 
         leftPanel.add(formPanel, BorderLayout.SOUTH);
 
-        // ===== RIGHT SIDE: deals panel =====
+        //  RIGHT SIDE: deals panel 
         JPanel dealsPanel = buildDealsPanel();
 
-        // ===== SPLIT PANE: left & right =====
+        //  SPLIT PANE: left & right 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, dealsPanel);
         splitPane.setResizeWeight(0.75);         // 75% width for left side, 25% for right
         splitPane.setDividerSize(5);
@@ -116,7 +115,7 @@ public class ManageFlights extends JFrame {
 
         add(splitPane, BorderLayout.CENTER);
 
-        // ===== events =====
+        //  events 
         addButton.addActionListener(e -> addFlight());
         updateButton.addActionListener(e -> updateFlight());
         deleteButton.addActionListener(e -> deleteFlight());
@@ -175,7 +174,7 @@ public class ManageFlights extends JFrame {
         return button;
     }
 
-    // ==================== Deals panel builder ====================
+    //  Deals panel builder 
     private JPanel buildDealsPanel() {
         JPanel dealsPanel = new JPanel(new GridBagLayout());
         dealsPanel.setOpaque(false);
@@ -306,7 +305,7 @@ public class ManageFlights extends JFrame {
         return dealsPanel;
     }
 
-    // ======================= LOAD FLIGHTS =======================
+    //  LOAD FLIGHTS 
 
     private void loadFlights() {
         try (Connection conn = DatabaseConnection.getConnection()) {
@@ -366,7 +365,7 @@ public class ManageFlights extends JFrame {
         return true;
     }
 
-    // ======================= ADD FLIGHT =======================
+    //  ADD FLIGHT 
 
     private void addFlight() {
         if (!validateFields()) return;
@@ -403,7 +402,6 @@ public class ManageFlights extends JFrame {
         }
     }
 
-    // يولّد رقم الرحلة التالي بالشكل FL100, FL101, ...
     private String generateNextFlightNo(Connection conn) throws SQLException {
         String sql =
                 "SELECT MAX(CAST(SUBSTRING(flight_no, 3) AS UNSIGNED)) AS num " +
@@ -422,7 +420,7 @@ public class ManageFlights extends JFrame {
         return "FL" + start;
     }
 
-    // ======================= UPDATE FLIGHT =======================
+    //  UPDATE FLIGHT 
 
     private void updateFlight() {
         int selectedRow = flightsTable.getSelectedRow();
@@ -464,7 +462,7 @@ public class ManageFlights extends JFrame {
         }
     }
 
-    // ======================= DELETE FLIGHT (WITH CHILD ROWS) =======================
+    //  DELETE FLIGHT 
 
     private void deleteFlight() {
         int selectedRow = flightsTable.getSelectedRow();
@@ -595,7 +593,7 @@ public class ManageFlights extends JFrame {
         }
     }
 
-    // =================== DEALS: DB HELPERS ===================
+    //  DEALS: DB HELPERS 
 
     private String generateNextDealId(Connection conn) throws SQLException {
         String sql = "SELECT MAX(CAST(SUBSTRING(deal_id, 6) AS UNSIGNED)) AS max_num FROM FlightDeal";
@@ -689,7 +687,7 @@ public class ManageFlights extends JFrame {
         dealTypeCombo.setSelectedIndex(0);
     }
 
-    // ======================= HELPERS =======================
+ 
 
     private void clearFields() {
         flightNameField.setText("");
