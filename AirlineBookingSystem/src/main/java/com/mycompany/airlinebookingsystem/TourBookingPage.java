@@ -28,7 +28,6 @@ public class TourBookingPage extends JFrame {
         setTitle("ByteAir - Book Tour");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        // ===== FULL SCREEN + BACKGROUND =====
         try {
             setContentPane(new JLabel(new ImageIcon(
                     getClass().getResource("/images/AirPlaneSky.jpg"))));
@@ -44,7 +43,6 @@ public class TourBookingPage extends JFrame {
     }
 
     private void initComponents() {
-        // you can adjust these X/Y values to move the card if you want
         int baseX = 80;
         int baseY = 80;
 
@@ -68,9 +66,7 @@ public class TourBookingPage extends JFrame {
 
         Font labelFont = new Font("Segoe UI", Font.PLAIN, 17);
 
-        // ---------------------------
-        // START DATE (JDateChooser)
-        // ---------------------------
+        // START DATE 
         JLabel startLabel = new JLabel("Start Date:");
         startLabel.setFont(labelFont);
         startLabel.setForeground(Color.WHITE);
@@ -83,9 +79,7 @@ public class TourBookingPage extends JFrame {
         startDateChooser.setToolTipText("Select the start date (today or later)");
         add(startDateChooser);
 
-        // ---------------------------
-        // END DATE (JDateChooser)
-        // ---------------------------
+        // END DATE 
         JLabel endLabel = new JLabel("End Date:");
         endLabel.setFont(labelFont);
         endLabel.setForeground(Color.WHITE);
@@ -103,7 +97,6 @@ public class TourBookingPage extends JFrame {
         startDateChooser.setMinSelectableDate(today);
         endDateChooser.setMinSelectableDate(today);
 
-        // If startDate changes, update min for endDate
         startDateChooser.addPropertyChangeListener("date", evt -> {
             Date start = startDateChooser.getDate();
             if (start != null) {
@@ -160,9 +153,7 @@ public class TourBookingPage extends JFrame {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
-    // ======================================================
-    //  AUTO ID: TB-001, TB-002, TB-003, ...
-    // ======================================================
+    
     private String generateNextTourBookingId(Connection conn) throws SQLException {
         String sql =
             "SELECT MAX(CAST(SUBSTRING(tour_booking_id, 4) AS UNSIGNED)) AS num " +
@@ -181,13 +172,9 @@ public class TourBookingPage extends JFrame {
             }
         }
 
-        // TB-001, TB-002, TB-010, ...
         return String.format("TB-%03d", next);
     }
 
-    // ======================================================
-    //  HANDLE BOOKING + INSERT INTO DB
-    // ======================================================
     private void handleBooking() {
         errorLabel.setText("");
 
@@ -248,7 +235,7 @@ public class TourBookingPage extends JFrame {
             return;
         }
 
-        // 4) Save to DB
+        // 4) Save to Database
         try (Connection conn = DatabaseConnection.getConnection()) {
 
             String tourBookingId = generateNextTourBookingId(conn);
@@ -284,7 +271,6 @@ public class TourBookingPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        // For standalone testing
         SwingUtilities.invokeLater(() ->
                 new TourBookingPage("TG-1", "Test Guide", "Riyadh", "350.00"));
     }
