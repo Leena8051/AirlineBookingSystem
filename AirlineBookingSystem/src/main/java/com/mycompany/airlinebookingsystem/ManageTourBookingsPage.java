@@ -63,7 +63,7 @@ public class ManageTourBookingsPage extends JFrame {
         totalPriceField = createFieldRow("Total Price:", xLabel, xField, y, w, h); y += gap;
         statusField     = createFieldRow("Status:", xLabel, xField, y, w, h);
 
-        bookingIdField.setEditable(false); // primary key
+        bookingIdField.setEditable(false); 
 
         updateButton = createButton("Update Booking", 580, 380);
         deleteButton = createButton("Delete Booking", 580, 380 + gap);
@@ -125,7 +125,6 @@ public class ManageTourBookingsPage extends JFrame {
         return b;
     }
 
-    // ---------- DB ops ----------
 
     private void loadBookings() {
         try (Connection conn = DatabaseConnection.getConnection()) {
